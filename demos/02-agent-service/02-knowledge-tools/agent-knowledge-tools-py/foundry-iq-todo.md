@@ -13,11 +13,13 @@ You need to create a knowledge base in Azure AI Search with at least one knowled
 **Steps:**
 
 1. **Create/Configure Azure AI Search Service**
+
    - You already have the `procodeaisearch` connection configured
    - Ensure **Semantic Ranker** is enabled on your search service
    - Service must be in a [region that supports agentic retrieval](https://learn.microsoft.com/en-us/azure/search/search-region-support)
 
 2. **Create a Knowledge Source**
+
    - Choose one of the supported knowledge sources:
      - Search Index (existing Azure AI Search index with semantic configuration)
      - Blob Storage (Azure Storage with documents)
@@ -46,6 +48,7 @@ from azure.core.credentials import AzureKeyCredential
 The sample requires a project connection that uses the project's managed identity to target the MCP endpoint of the knowledge base.
 
 **Connection Details:**
+
 - **Name**: `foundry-iq-connection` (or customize in `.env`)
 - **Type**: `RemoteTool`
 - **Category**: `RemoteTool`
@@ -114,11 +117,13 @@ FOUNDRY_IQ_CONNECTION="foundry-iq-connection"     # Name of the project connecti
 ### 4. Azure Roles and Permissions (Required)
 
 **Microsoft Foundry Project:**
+
 - **Azure AI User** role - to access model deployments and create agents (auto-assigned to Owners)
 - **Azure AI Project Manager** role - to create project connections for MCP authentication
 - Enable **system-assigned managed identity** on your project
 
 **Azure AI Search Service:**
+
 - Assign **Search Index Data Reader** role to your project's managed identity
 - (Optional) **Search Index Data Contributor** role if the agent needs to write documents
 - (Optional) For SharePoint knowledge sources, include ACL fields and pass user tokens
@@ -176,21 +181,25 @@ python agents-foundry-iq.py
 ## Troubleshooting
 
 **"Connection not found" error:**
+
 - Verify the connection name in `.env` matches the actual connection
 - Check that the connection was created successfully
 - Try creating the connection programmatically
 
 **"Knowledge base not found" error:**
+
 - Verify the knowledge base name is correct
 - Check that the knowledge base exists in Azure AI Search
 - Ensure the MCP endpoint URL is properly formatted
 
 **"Permission denied" errors:**
+
 - Verify managed identity is enabled on the project
 - Check role assignments on Azure AI Search service
 - Ensure you have the required roles on the Foundry project
 
 **"No results returned" error:**
+
 - Verify knowledge sources contain data
 - Check that the semantic configuration is correct on the search index
 - Try a different query that matches your knowledge base content
