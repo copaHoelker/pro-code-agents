@@ -1,5 +1,8 @@
 # Script to create 8 student user accounts in Azure Entra, add them to a group, and assign Azure AI Developer role
 
+# Hardcoded account resource ID (parent of project - needed for visibility in portal)
+$AccountResourceId = "/subscriptions/cd091145-5ea2-4703-ba5d-41063b1d4308/resourceGroups/rg-pro-code-agents/providers/Microsoft.CognitiveServices/accounts/pro-code-agents-resource"
+
 # Hardcoded project resource ID
 $ProjectResourceId = "/subscriptions/cd091145-5ea2-4703-ba5d-41063b1d4308/resourceGroups/rg-pro-code-agents/providers/Microsoft.CognitiveServices/accounts/pro-code-agents-resource/projects/pro-code-agents"
 
@@ -30,8 +33,9 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host "Group created with ID: $groupId"
 
-# Role ID for Azure AI Developer
-$roleId = "64702f94-c441-49e6-a78b-ef80e0188fee"
+# Role IDs
+$azureAIDeveloperRoleId = "64702f94-c441-49e6-a78b-ef80e0188fee"  # Azure AI Developer
+$openAIUserRoleId = "5e0bd9bd-7b93-4f28-af87-19fc36ad61bd"         # Cognitive Services OpenAI User
 
 # Prompt for password twice with confirmation
 do {
@@ -73,13 +77,31 @@ for ($i = 1; $i -le 8; $i++) {
         Write-Host "User $userPrincipal created and added to group."
     }
 
-    # Assign Azure AI Developer role
-    Write-Host "Assigning Azure AI Developer role to $userPrincipal..."
-    az role assignment create --assignee $userPrincipal --role $roleId --scope $ProjectResourceId
+    # Assign Azure AI Developer role at account scope (for project visibility and model catalog)
+    Write-Host "Assigning Azure AI Developer role at account scope to $userPrincipal..."
+    az role assignment create --assignee $userPrincipal --role $azureAIDeveloperRoleId --scope $AccountResourceId
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Failed to assign role to $userPrincipal"
+        Write-Host "Failed to assign account-scope role to $userPrincipal"
     } else {
-        Write-Host "Role assigned to $userPrincipal."
+        Write-Host "Account-scope role assigned to $userPrincipal."
+    }
+
+    # Assign Cognitive Services OpenAI User role at account scope (for model deployments)
+    Write-Host "Assigning Cognitive Services OpenAI User role to $userPrincipal..."
+    az role assignment create --assignee $userPrincipal --role $openAIUserRoleId --scope $AccountResourceId
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Failed to assign OpenAI User role to $userPrincipal"
+    } else {
+        Write-Host "OpenAI User role assigned to $userPrincipal."
+    }
+
+    # Assign Azure AI Developer role at project scope (for project-level operations)
+    Write-Host "Assigning Azure AI Developer role at project scope to $userPrincipal..."
+    az role assignment create --assignee $userPrincipal --role $azureAIDeveloperRoleId --scope $ProjectResourceIdrojectResourceId
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Failed to assign project-scope role to $userPrincipal"
+    } else {
+        Write-Host "Project-scope role assigned to $userPrincipal."
     }
 }
 

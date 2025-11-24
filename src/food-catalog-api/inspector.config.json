@@ -1,0 +1,9 @@
+{
+    "mcpServers": {
+        "food-mcp": {
+            "type": "streamable-http",
+            "url": "http://localhost:47003",
+            "note": "Local Food MCP Server running on port 47003"
+        }
+    }
+}

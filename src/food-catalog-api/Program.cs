@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using ModelContextProtocol.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +55,11 @@ builder.Services.AddCors(o => o.AddPolicy("nocors", builder =>
         .AllowCredentials();
 }));
 
+// MCP server registration: expose Food domain as tools to AI models
+builder.Services.AddMcpServer()
+    .WithHttpTransport()
+    .WithToolsFromAssembly();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,6 +78,9 @@ if (app.Environment.IsDevelopment())
 app.UseCors("nocors");
 
 app.MapControllers();
+
+// Map MCP endpoints (JSON-RPC over HTTP transport)
+app.MapMcp();
 
 // Ensure database is created and seeded
 using (var scope = app.Services.CreateScope())
