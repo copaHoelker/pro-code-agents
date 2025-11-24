@@ -54,10 +54,10 @@ cd remote-mcp-functions-python
 2. Create the Azure Functions project using the Azure Functions Core Tools:
 
 ```bash
-func init src --worker-runtime python --model V2
+func init mcp-tool --worker-runtime python --model V2
 ```
 
-This creates a new Functions project in the `src` directory with the following structure:
+This creates a new Functions project in the `mcp-tool` directory with the following structure:
 
 - `function_app.py` - Main application file where functions are defined
 - `host.json` - Function host configuration
@@ -65,10 +65,10 @@ This creates a new Functions project in the `src` directory with the following s
 - `requirements.txt` - Python dependencies
 - `.gitignore` - Git ignore file
 
-3. Navigate to the src directory:
+3. Navigate to the mcp-tool directory:
 
 ```bash
-cd src
+cd mcp-tool
 ```
 
 ### Step 2: Update host.json for MCP Support
@@ -435,7 +435,7 @@ Now let's run the complete MCP server locally and test it.
 
 ### Step 1: Start the Functions Host
 
-From the `src` directory, start the Functions host:
+From the `mcp-tool` directory, start the Functions host:
 
 ```bash
 func start
@@ -726,7 +726,7 @@ You now have a solid foundation for building Remote MCP Servers with Azure Funct
 
 ```
 remote-mcp-functions-python/
-├── src/
+├── mcp-tool/
 │   ├── function_app.py
 │   ├── host.json
 │   ├── local.settings.json

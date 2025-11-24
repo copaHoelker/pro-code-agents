@@ -54,20 +54,20 @@ cd remote-mcp-functions-dotnet
 2. Create the Azure Functions project using the Azure Functions Core Tools:
 
 ```bash
-func init src --worker-runtime dotnet-isolated --target-framework net10.0
+func init mcp-tool --worker-runtime dotnet-isolated --target-framework net10.0
 ```
 
-This creates a new Functions project in the `src` directory with the following structure:
+This creates a new Functions project in the `mcp-tool` directory with the following structure:
 
 - `Program.cs` - Application entry point
 - `host.json` - Function host configuration
 - `local.settings.json` - Local development settings
 - `.gitignore` - Git ignore file
 
-3. Navigate to the src directory:
+3. Navigate to the mcp-tool directory:
 
 ```bash
-cd src
+cd mcp-tool
 ```
 
 ### Step 2: Add Required NuGet Packages
@@ -146,7 +146,7 @@ Before implementing our functions, let's create a centralized class for tool met
 
 ### Step 1: Create ToolsInformation.cs
 
-Create a new file `ToolsInformation.cs` in the `src` directory:
+Create a new file `ToolsInformation.cs` in the `mcp-tool` directory:
 
 ```csharp
 namespace FunctionsSnippetTool;
@@ -189,7 +189,7 @@ Now let's create our first MCP tool - a simple greeting function.
 
 ### Step 1: Create HelloTool.cs
 
-Create a new file `HelloTool.cs` in the `src` directory:
+Create a new file `HelloTool.cs` in the `mcp-tool` directory:
 
 ```csharp
 using Microsoft.Azure.Functions.Worker;
@@ -236,7 +236,7 @@ Now let's implement the two snippet management tools that interact with blob sto
 
 ### Step 1: Create SnippetsTool.cs
 
-Create a new file `SnippetsTool.cs` in the `src` directory:
+Create a new file `SnippetsTool.cs` in the `mcp-tool` directory:
 
 ```csharp
 using Microsoft.Azure.Functions.Worker;
@@ -352,7 +352,7 @@ Now let's run the MCP server locally and test it.
 
 ### Step 1: Start the Functions Host
 
-From the `src` directory, start the Functions host:
+From the `mcp-tool` directory, start the Functions host:
 
 ```bash
 func start
@@ -634,7 +634,7 @@ You now have a solid foundation for building Remote MCP Servers with Azure Funct
 
 ```
 remote-mcp-functions-dotnet/
-├── src/
+├── mcp-tool/
 │   ├── HelloTool.cs
 │   ├── SnippetsTool.cs
 │   ├── ToolsInformation.cs
