@@ -20,8 +20,9 @@ while (true)
     Console.WriteLine("5. InputUrl - URL image input");
     Console.WriteLine("6. InputBase64 - Data URL image input");
     Console.WriteLine("7. Output - Post-processing & external integration");
+    Console.WriteLine("8. Tracing - OpenTelemetry tracing with Azure Monitor");
     Console.WriteLine("\nPress Ctrl+C to exit");
-    Console.Write("\nSelect a demo (1-7): ");
+    Console.Write("\nSelect a demo (1-8): ");
 
     string? choice = Console.ReadLine();
     Console.Clear();
@@ -72,8 +73,14 @@ while (true)
                 await runnerOutput.RunAsync();
                 break;
 
+            case "8":
+                Console.WriteLine("=== Demo: Tracing - OpenTelemetry tracing with Azure Monitor ===\n");
+                var runnerTracing = new AgentRunnerTracing(appConfig);
+                await runnerTracing.RunAsync();
+                break;
+
             default:
-                Console.WriteLine("Invalid choice. Please select a number from 1-7.");
+                Console.WriteLine("Invalid choice. Please select a number from 1-8.");
                 break;
         }
     }

@@ -5,12 +5,16 @@ description = "AI Agent demo with diagram generation"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-    "python-dotenv>=1.0.0",
-    "azure-identity>=1.16.0",
-    "azure-ai-projects>=2.0.0b2",
-    "azure-ai-agents>=1.2.0b6",
-    "pathlib>=1.0.1",
-    "qrcode[pil]>=7.0",
-    "azure-storage-blob>=12.0.0",
-    "Pillow>=10.0.0"
+    "python-dotenv==1.2.1",
+    "azure-identity==1.25.1",
+    "azure-ai-projects==2.0.0b2",
+    "azure-ai-agents==1.2.0b6",
+    "pathlib==1.0.1",
+    "qrcode[pil]==8.2",
+    "azure-storage-blob==12.27.1",
+    "Pillow==12.0.0",
+    "azure-monitor-opentelemetry==1.8.2",
+    "opentelemetry-instrumentation-openai-v2==2.1b0",
+    "httpx==0.28.1",
+    "openai==2.8.1"
 ]
