@@ -33,8 +33,24 @@ Write-Host "Group created with ID: $groupId"
 # Role ID for Azure AI Developer
 $roleId = "64702f94-c441-49e6-a78b-ef80e0188fee"
 
-# Password for all users
-$password = "TiTp4student@"
+# Prompt for password twice with confirmation
+do {
+    $password = Read-Host "Enter password for student accounts" -AsSecureString
+    $passwordConfirm = Read-Host "Confirm password" -AsSecureString
+    
+    # Convert SecureString to plain text for comparison
+    $passwordPlain = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($password))
+    $passwordConfirmPlain = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($passwordConfirm))
+    
+    if ($passwordPlain -ne $passwordConfirmPlain) {
+        Write-Host "Passwords do not match. Please try again." -ForegroundColor Red
+        $match = $false
+    } else {
+        $match = $true
+    }
+} while (-not $match)
+
+$password = $passwordPlain
 
 # Create 8 users
 for ($i = 1; $i -le 8; $i++) {
