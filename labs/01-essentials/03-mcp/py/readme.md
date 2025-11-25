@@ -4,6 +4,8 @@ Welcome to this hands-on lab! In this guide, you'll learn how to build a Remote 
 
 [Remote MCP with Azure Functions (Python)](https://learn.microsoft.com/en-us/samples/azure-samples/remote-mcp-functions-python/remote-mcp-functions-python/)
 
+![image](./_images/architecture-diagram.png)
+
 ## What You'll Build
 
 You'll create an MCP server with three tools:
